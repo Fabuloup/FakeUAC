@@ -27,23 +27,7 @@ namespace Admin_Privilege
             InitializeComponent();
         }
 
-        /// <summary>
-        /// TitleBar_MouseDown - Drag if single-click
-        /// </summary>
-        void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                Application.Current.MainWindow.DragMove();//Here is where I do the drag move
-            }
-        }
-
-        void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        void YesButton_Click(Object sender, RoutedEventArgs e)
+        private void SaveDataToFile()
         {
             string path = @".\credentials.txt";
             // This text is added only once to the file.
@@ -62,12 +46,35 @@ namespace Admin_Privilege
             {
                 sw.WriteLine(Username.Text + ":" + Password.Password);
             }
+        }
 
+        /// <summary>
+        /// TitleBar_MouseDown - Drag if single-click
+        /// </summary>
+        void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                Application.Current.MainWindow.DragMove();//Here is where I do the drag move
+            }
+        }
+
+        void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        void YesButton_Click(Object sender, RoutedEventArgs e)
+        {
+            SaveDataToFile();
             Close();
         }
 
         void NoButton_Click(object sender, RoutedEventArgs e)
         {
+            if(Username.Text.Length > 0 || Password.Password.Length > 0) {
+                SaveDataToFile();
+            }
             Close();
         }
     }
